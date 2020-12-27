@@ -38,10 +38,10 @@ productRoutes.route('/edit/:id').get(function(req,res){
    })
 })
 
-productRoutes.route('/update/:id').put(function(req,res){
-    Product.findById(req.params.id,function(err,product){
+productRoutes.route('/update/:id').post(function(req,res){
+   Product.findById(req.params.id,function(product,err){
         if(!product){
-            res.status(400).send('record not found');
+           console.log("that product is outof our stocke");
         }
         else{
          product.productName= req.body.productName;
@@ -59,7 +59,7 @@ productRoutes.route('/update/:id').put(function(req,res){
 })
 
 productRoutes.route('/delete/:id').delete(function(req,res){
-   Product.findByIdAndRemove({_id:req.params.id},function(err,product){
+   Product.findByIdAndRemove({_id:req.params.id},function(product,err){
        if(err){
            res.json(err);
        }
